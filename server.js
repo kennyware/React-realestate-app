@@ -6,7 +6,7 @@ const path = require('path');
 const app = express();
 const port  = process.env.PORT || 5000;
 
-mongoose.connect(config.get('mongoUri'), { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false }).then(() => {
+mongoose.connect(config.get('mongoUri'), { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false, useUnifiedTopology: true }).then(() => {
     console.log('Connected to mongodb...')
 }).catch(err => {
     console.log(`Could not connect to mongdb... ${err}`)

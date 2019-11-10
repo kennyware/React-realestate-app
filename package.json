@@ -4,7 +4,6 @@
   "description": "React Real Estate App",
   "main": "server.js",
   "scripts": {
-    "client-install": "npm install --prefix client",
     "start": "node server",
     "server": "nodemon server",
     "client": "npm start --prefix client",
@@ -19,12 +18,11 @@
     "config": "^3.2.2",
     "express": "^4.17.1",
     "express-validator": "^6.1.1",
-    "google-map-react": "^1.1.4",
     "gravatar": "^1.8.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.9",
     "node-fetch": "^2.6.0",
-    "react-google-maps": "^9.4.5"
+    "react-scripts": "^3.2.0"
   },
   "devDependencies": {
     "concurrently": "^4.1.2",

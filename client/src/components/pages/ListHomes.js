@@ -42,9 +42,12 @@ const MapMiniMarker = styled.div`
         background: #3cbd4b;
     }
 `;
+
+const GOOGLE_MAP_KEY = `${process.env.REACT_APP_GOOGLE_API_KEY}`
+
 const MapComponent = props => {
     return (
-        <GoogleMapReact bootstrapURLKeys={{key: 'AIzaSyDGbFei4QdX0y8icjVeLloa5IdqFS3cz4A'}} defaultCenter={{lat: 29.689418, lng: -95.474464}} defaultZoom={7}>
+        <GoogleMapReact bootstrapURLKeys={{key: GOOGLE_MAP_KEY}} defaultCenter={{lat: 29.689418, lng: -95.474464}} defaultZoom={7}>
             {props.homes && props.homes.map(home => <MapMiniMarker key={home.mlsId} lat={home.geo.lat} lng={home.geo.lng}/>)}
         </GoogleMapReact>
     )
