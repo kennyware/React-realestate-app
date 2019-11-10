@@ -1,0 +1,4 @@
+{
+    "mongoUri": "mongodb://kenny:Sw1mm1ng@ds113703.mlab.com:13703/react-ret",
+    "jwtSecret": "my_jwtSecret454788"
+}

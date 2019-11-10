@@ -8,9 +8,9 @@ const jwt = require('jsonwebtoken');
 const auth = require('../middleware/auth')
 
 
-// @route GET api/users/
+// @route GET api/users/register
 // @access Public
-router.post('/', [
+router.post('/register', [
     check('username', 'Please enter all fields').exists().not().isEmpty(),
     check('email', 'Please enter all fields').exists().not().isEmpty(),
     check('email', 'Email is invalid').isEmail(),
@@ -67,7 +67,7 @@ router.post('/saved', auth, (req, res) => {
     const id = req.user.id
     
     
-    User.findById(id).then(user => {
+    User.findById(id).select('-password').then(user => {
 
         // Check if property id is already saved
         const props = user.saved_props.filter(prop => {
@@ -81,7 +81,7 @@ router.post('/saved', auth, (req, res) => {
         // Add property
         User.findByIdAndUpdate(id, {$push: {saved_props: savedProp}}).then(result => {
             res.json({success: true})
-        }).catch(err => res.status(500).json({error: err}))
+        }).catch(err => res.status(500).json({success: false, error: err}))
     })
 })
 
@@ -106,10 +106,10 @@ router.delete('/saved/:id', auth, (req, res) => {
             return res.status(400).json({error: 'There is no saved property with that id'})
         }
 
-        // Add property
+        // Remove property
         User.findByIdAndUpdate(id, {$pull: {saved_props: delProp}}).then(result => {
             res.json({success: true})
-        }).catch(err => res.status(500).json({error: err}))
+        }).catch(err => res.status(500).json({success: false, error: err}))
     })
 })
 
@@ -135,10 +135,17 @@ router.post('/login', [
 
             jwt.sign({id: user._id}, config.get('jwtSecret'), {expiresIn: 3600}, (err, token) => {
                 if(err) return res.status(400).json(err)
-                res.json({token})
+                User.findById(user._id).select('-password').then(authUser => res.json({token, user: authUser}))
             })
         })
     })
+})
+
+// @route GET api/users/authenticate
+router.get('/authenticate', auth, (req, res) => {
+    User.findById(req.user.id).select('-password').then(user => {
+        res.json(user)
+    }).catch(err => res.status(500).send('Server Error'))
 })
 
 module.exports = router;
