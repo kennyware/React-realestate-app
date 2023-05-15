@@ -1,4 +1,4 @@
 {
-    "mongoUri": "mongodb://kenny:Sw1mm1ng@ds113703.mlab.com:13703/react-ret",
-    "jwtSecret": "my_jwtSecret454788"
+  "mongoUri": "mongodb+srv://kenny-master:Sw1mm1ng@cluster0.mqkbl.mongodb.net/?retryWrites=true&w=majority",
+  "jwtSecret": "my_jwtSecret454788"
 }
